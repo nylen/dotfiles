@@ -15,3 +15,7 @@ for i in * .*; do
             ;;
     esac
 done
+
+for i in _actions/*.sh; do
+    "$i"
+done
