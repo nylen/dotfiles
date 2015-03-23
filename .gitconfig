@@ -1,0 +1,31 @@
+[color]
+  ui = auto
+
+[user]
+  name = James Nylen
+  email = jnylen@gmail.com
+
+[alias]
+  alias = config --get-regexp ^alias
+
+  st = status
+  d = diff
+  dc = diff --cached
+
+  ci = commit
+  cm = commit -m
+
+  co = checkout
+
+  push = push -u
+
+  ls-untracked = ls-files -o --exclude-standard
+  add-untracked = !git ls-untracked | xargs -d\\\\n git add -v
+
+  ls-deleted = ls-files -d
+  rm-deleted = !git ls-deleted | xargs -d\\\\n git rm
+  rm-untracked = !git ls-untracked | xargs -d\\\\n rm -v
+
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore_global

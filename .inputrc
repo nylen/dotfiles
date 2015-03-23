@@ -1,0 +1,11 @@
+set show-all-if-ambiguous on
+set completion-ignore-case on
+set bell-style none
+
+$if mode=emacs
+
+# alternate mappings for "page up" and "page down" to search the history
+ "\e[5~": history-search-backward
+ "\e[6~": history-search-forward
+
+$endif
