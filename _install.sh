@@ -24,6 +24,8 @@ install_dotfiles() {
     fi
 }
 
+install_dotfiles
+
 os="$(uname -s)"
 
 case "$os" in
