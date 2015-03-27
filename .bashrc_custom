@@ -1,0 +1,56 @@
+#!/bin/bash
+
+__terminal_color() {
+    local _np_start="\["
+    local _np_end="\]"
+
+    echo "${_np_start}\033[$1${_np_end}"
+}
+
+__bashrc_prompt_command() {
+    local exit_status=$? # must come first
+
+    local _color_blk=$(__terminal_color '1;30m')
+    local _color_red=$(__terminal_color '0;31m')
+    local _color_ora=$(__terminal_color '1;31m')
+    local _color_grn=$(__terminal_color '0;32m')
+    local _color_yel=$(__terminal_color '0;33m')
+    local _color_blu=$(__terminal_color '0;34m')
+    local _color_mag=$(__terminal_color '0;35m')
+    local _color_pur=$(__terminal_color '1;35m')
+    local _color_cya=$(__terminal_color '0;36m')
+    local _color_wht=$(__terminal_color '1;37m')
+    local _color_clr=$(__terminal_color '0m')
+
+    local _title_start="\033]0;"
+    local _title_end="\007"
+
+    local hostname="$(hostname -s)"
+
+    local wd="$(pwd)/"
+
+    # replace common path components
+    wd="${wd/#$HOME\//~/}"
+
+    # remove trailing slash
+    wd="${wd%/}"
+
+    if [ $exit_status = 0 ]; then
+        local indicator="${_color_grn}✓"
+    else
+        local indicator="${_color_red}✗"
+    fi
+
+    if [ $USER = root ]; then
+        local username="${_color_red}$USER"
+        local prompt_char="#"
+    else
+        local username="${_color_yel}$USER"
+        local prompt_char="$"
+    fi
+
+    echo -ne "${_title_start}$wd on $hostname${_title_end}"
+    export PS1="$indicator $username${_color_wht}@${_color_cya}$hostname ${_color_blu}$wd ${_color_wht}$prompt_char${_color_clr} "
+}
+
+PROMPT_COMMAND=__bashrc_prompt_command
