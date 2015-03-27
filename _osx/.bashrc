@@ -32,3 +32,8 @@ add_to_path "$HOME/bin"
 if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
 fi
+
+
+# extra bash aliases
+
+[ -r ~/.bash_aliases ] && source ~/.bash_aliases
