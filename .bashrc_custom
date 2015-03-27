@@ -30,7 +30,10 @@ __bashrc_prompt_command() {
     local wd="$(pwd)/"
 
     # replace common path components
-    wd="${wd/#$HOME\//~/}"
+    wd="${wd/#$HOME\//~\/}"
+    wd="${wd/#\/media\/james_home\//~\/}"
+    # for bash 3.x (ships with OS X)
+    wd="${wd/#~\\/~}"
 
     # remove trailing slash
     wd="${wd%/}"
