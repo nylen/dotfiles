@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 install_dotfiles() {
     for i in * .*; do
         case "$i" in
-            .|..|.git|_*|*.md|\*)
+            .|..|.git|.gitignore|_*|*.md|\*)
                 ;;
             *)
                 src="$(pwd)/$i"
