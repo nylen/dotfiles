@@ -67,7 +67,7 @@ __bashrc_prompt_command() {
         local username="${_color_red}$USER"
         local prompt_char="#"
     else
-        local username="${_color_yel}$USER"
+        local username="${_color_grn}$USER"
         local prompt_char="$"
     fi
 
