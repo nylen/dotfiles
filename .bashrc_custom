@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Better history control options
+# http://unix.stackexchange.com/a/48116/26139
+# http://unix.stackexchange.com/a/1292
+# http://askubuntu.com/a/115625/99715
+
+# Avoid duplicates
+export HISTCONTROL=ignoredups:erasedups
+# Append rather than overwrite
+shopt -s histappend
+# Long history
+export HISTSIZE=5000
+export HISTFILESIZE=5000
+
 __terminal_color() {
     local _np_start="\["
     local _np_end="\]"
@@ -8,7 +21,13 @@ __terminal_color() {
 }
 
 __bashrc_prompt_command() {
-    local exit_status=$? # must come first
+    # This has to come first
+    local exit_status=$?
+
+    # Update history file after each command
+    history -a # append current session's history to history file
+    history -c # clear current session's history
+    history -r # read current session's history from file
 
     local _color_blk=$(__terminal_color '1;30m')
     local _color_red=$(__terminal_color '0;31m')
