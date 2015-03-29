@@ -7,7 +7,7 @@ if [ ! -r "$_mocha" ]; then
     exit
 fi
 
-if head -n 1 "$_mocha" | grep -q Solarized; then
+if head -n 5 "$_mocha" | grep -q Solarized; then
     # _mocha executable already patched
     exit
 fi
@@ -29,5 +29,14 @@ if [ ! -w "$_mocha" ]; then
     exit
 fi
 
+# This seems to be in flux between versions; _mocha may or may not have the #!
+# header pointing it at node
+if head -n 1 "$_mocha" | grep -q /usr/bin/env; then
+    patch_file="mocha-env-node.diff"
+else
+    patch_file="mocha.diff"
+fi
+
 cd "$(dirname "$0")"
-patch --directory "$(dirname "$_mocha")" -p0 < mocha.diff
+echo "$_mocha < $patch_file"
+patch --directory "$(dirname "$_mocha")" --silent -p0 < "$patch_file"
