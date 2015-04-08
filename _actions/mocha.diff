@@ -5,7 +5,7 @@
 +// https://github.com/mochajs/mocha/issues/1200#issuecomment-62780003
 +var colors = require('../lib/reporters/base').colors;
 +colors['diff added']   = '32;40';
-+colors['diff removed'] = '32;40';
++colors['diff removed'] = '31;40';
 +
  /**
   * Module dependencies.
