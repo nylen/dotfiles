@@ -7,11 +7,6 @@
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 
-# Aliases
-
-alias cask="brew cask"
-
-
 # Add directories to path
 
 # http://superuser.com/a/39840/9599

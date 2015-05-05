@@ -1,5 +1,7 @@
 #!/bin/bash
 
+alias cask="brew cask"
+
 # http://apple.stackexchange.com/a/158268
 alias gif="qlmanage -p"
 
