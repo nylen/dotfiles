@@ -13,6 +13,8 @@ shopt -s histappend
 export HISTSIZE=5000
 export HISTFILESIZE=5000
 
+export EDITOR=vim
+
 __terminal_color() {
     local _np_start="\["
     local _np_end="\]"
