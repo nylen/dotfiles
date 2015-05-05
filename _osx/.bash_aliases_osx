@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# http://apple.stackexchange.com/a/158268
+alias gif="qlmanage -p"
+
+# OS X xargs sucks (no `-d|--delimiter` option)
+if type -P gxargs > /dev/null; then
+    alias xargs="gxargs"
+else
+    echo "WARNING - Install gnu xargs:"
+    echo "brew install findutils"
+    echo "alias xargs=gxargs # only needed for running shells"
+fi

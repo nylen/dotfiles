@@ -37,3 +37,4 @@ fi
 # extra bash aliases
 
 [ -r ~/.bash_aliases ] && source ~/.bash_aliases
+[ -r ~/.bash_aliases_osx ] && source ~/.bash_aliases_osx
