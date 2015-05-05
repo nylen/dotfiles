@@ -3,7 +3,7 @@
 
 # brew cask options
 # https://github.com/caskroom/homebrew-cask/issues/2534
-# https://github.com/caskroom/homebrew-cask/pull/9178
+# https://github.com/caskroom/homebrew-cask/pull/9178#issuecomment-78128955
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 
