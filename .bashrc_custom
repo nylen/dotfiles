@@ -96,6 +96,11 @@ __bashrc_prompt_command() {
         local prompt_char="$"
     fi
 
+    if [ ! -z "$VIRTUAL_ENV" ]; then
+        echo
+        echo -e "${_color_blk}Python virtualenv: $(__cleanup_path "$VIRTUAL_ENV")${_color_clr}"
+    fi
+
     if [ $TERM != linux ]; then
         # system consoles don't support xterm title escape
         echo -ne "${_title_start}$wd on $hostname${_title_end}"
