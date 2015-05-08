@@ -15,11 +15,15 @@ export HISTFILESIZE=5000
 
 export EDITOR=vim
 
-__terminal_color() {
+__ps1_nonprinting() {
     local _np_start="\["
     local _np_end="\]"
 
-    echo "${_np_start}\033[$1${_np_end}"
+    echo "${_np_start}$1${_np_end}"
+}
+
+__terminal_color() {
+    echo "\033[$1"
 }
 
 __cleanup_path() {
@@ -58,6 +62,19 @@ __bashrc_prompt_command() {
     local _color_wht=$(__terminal_color '1;37m')
     local _color_clr=$(__terminal_color '0m')
 
+    # TODO simplify
+    local _pcolor_blk=$(__ps1_nonprinting "$_color_blk")
+    local _pcolor_red=$(__ps1_nonprinting "$_color_red")
+    local _pcolor_ora=$(__ps1_nonprinting "$_color_ora")
+    local _pcolor_grn=$(__ps1_nonprinting "$_color_grn")
+    local _pcolor_yel=$(__ps1_nonprinting "$_color_yel")
+    local _pcolor_blu=$(__ps1_nonprinting "$_color_blu")
+    local _pcolor_mag=$(__ps1_nonprinting "$_color_mag")
+    local _pcolor_pur=$(__ps1_nonprinting "$_color_pur")
+    local _pcolor_cya=$(__ps1_nonprinting "$_color_cya")
+    local _pcolor_wht=$(__ps1_nonprinting "$_color_wht")
+    local _pcolor_clr=$(__ps1_nonprinting "$_color_clr")
+
     local _title_start="\033]0;"
     local _title_end="\007"
 
@@ -66,16 +83,16 @@ __bashrc_prompt_command() {
     local wd="$( __cleanup_path "$( pwd )" )"
 
     if [ $exit_status = 0 ]; then
-        local indicator="${_color_grn}✓"
+        local indicator="${_pcolor_grn}✓"
     else
-        local indicator="${_color_red}✗"
+        local indicator="${_pcolor_red}✗"
     fi
 
     if [ $USER = root ]; then
-        local username="${_color_red}$USER"
+        local username="${_pcolor_red}$USER"
         local prompt_char="#"
     else
-        local username="${_color_grn}$USER"
+        local username="${_pcolor_grn}$USER"
         local prompt_char="$"
     fi
 
@@ -84,7 +101,7 @@ __bashrc_prompt_command() {
         echo -ne "${_title_start}$wd on $hostname${_title_end}"
     fi
 
-    export PS1="$indicator $username${_color_wht}@${_color_cya}$hostname ${_color_blu}$wd ${_color_wht}$prompt_char${_color_clr} "
+    export PS1="$indicator $username${_pcolor_wht}@${_pcolor_cya}$hostname ${_pcolor_blu}$wd ${_pcolor_wht}$prompt_char${_pcolor_clr} "
 }
 
 PROMPT_COMMAND=__bashrc_prompt_command
