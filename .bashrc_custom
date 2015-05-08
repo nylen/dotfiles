@@ -22,6 +22,21 @@ __terminal_color() {
     echo "${_np_start}\033[$1${_np_end}"
 }
 
+__cleanup_path() {
+    local path="$1/"
+
+    # replace common path components
+    path="${path/#$HOME\//~\/}"
+    path="${path/#\/media\/james_home\//~\/}"
+    # for bash 3.x (ships with OS X)
+    path="${path/#~\\/~}"
+
+    # remove trailing slash
+    path="${path%/}"
+
+    echo -n "$path"
+}
+
 __bashrc_prompt_command() {
     # This has to come first
     local exit_status=$?
@@ -48,16 +63,7 @@ __bashrc_prompt_command() {
 
     local hostname="$(hostname -s)"
 
-    local wd="$(pwd)/"
-
-    # replace common path components
-    wd="${wd/#$HOME\//~\/}"
-    wd="${wd/#\/media\/james_home\//~\/}"
-    # for bash 3.x (ships with OS X)
-    wd="${wd/#~\\/~}"
-
-    # remove trailing slash
-    wd="${wd%/}"
+    local wd="$( __cleanup_path "$( pwd )" )"
 
     if [ $exit_status = 0 ]; then
         local indicator="${_color_grn}✓"
