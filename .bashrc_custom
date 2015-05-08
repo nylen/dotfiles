@@ -73,7 +73,11 @@ __bashrc_prompt_command() {
         local prompt_char="$"
     fi
 
-    echo -ne "${_title_start}$wd on $hostname${_title_end}"
+    if [ $TERM != linux ]; then
+        # system consoles don't support xterm title escape
+        echo -ne "${_title_start}$wd on $hostname${_title_end}"
+    fi
+
     export PS1="$indicator $username${_color_wht}@${_color_cya}$hostname ${_color_blu}$wd ${_color_wht}$prompt_char${_color_clr} "
 }
 
