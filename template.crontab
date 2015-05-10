@@ -1,0 +1,9 @@
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/james/bin
+
+#  m  h   dom
+#  |  |   | mon
+#  |  |   | | dow
+#  |  |   | | |    command
+
+# */5 *   * * *    # can remove this later - vim:ft=crontab
+  */5 *   * * *    echo 'It works!' > /tmp/crontab-test.txt
