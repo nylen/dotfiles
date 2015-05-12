@@ -15,6 +15,8 @@ export HISTFILESIZE=5000
 
 export EDITOR=vim
 
+export __ps1_hostname=="$(hostname -s)"
+
 __ps1_nonprinting() {
     local _np_start="\["
     local _np_end="\]"
@@ -78,8 +80,6 @@ __bashrc_prompt_command() {
     local _title_start="\033]0;"
     local _title_end="\007"
 
-    local hostname="$(hostname -s)"
-
     local wd="$( __cleanup_path "$( pwd )" )"
 
     if [ $exit_status = 0 ]; then
@@ -103,10 +103,10 @@ __bashrc_prompt_command() {
 
     if [ $TERM != linux ]; then
         # system consoles don't support xterm title escape
-        echo -ne "${_title_start}$wd on $hostname${_title_end}"
+        echo -ne "${_title_start}$wd on $__ps1_hostname${_title_end}"
     fi
 
-    export PS1="$indicator $username${_pcolor_wht}@${_pcolor_cya}$hostname ${_pcolor_blu}$wd ${_pcolor_wht}$prompt_char${_pcolor_clr} "
+    export PS1="$indicator $username${_pcolor_wht}@${_pcolor_cya}$__ps1_hostname ${_pcolor_blu}$wd ${_pcolor_wht}$prompt_char${_pcolor_clr} "
 }
 
 PROMPT_COMMAND=__bashrc_prompt_command
