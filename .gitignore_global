@@ -1,4 +1,5 @@
 .ackrc
+.agignore
 .DS_Store
 .floo
 .flooignore

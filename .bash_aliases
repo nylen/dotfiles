@@ -30,3 +30,8 @@ alias svc="sudo service"
 if type -P hub > /dev/null; then
     alias git="hub"
 fi
+
+# ag is many times faster than ack
+if type -P ag > /dev/null; then
+    alias ack="ag"
+fi
