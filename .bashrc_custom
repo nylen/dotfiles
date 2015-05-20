@@ -15,7 +15,7 @@ export HISTFILESIZE=5000
 
 export EDITOR=vim
 
-export __ps1_hostname=="$(hostname -s)"
+export __ps1_hostname="$(hostname -s)"
 
 __ps1_nonprinting() {
     local _np_start="\["
