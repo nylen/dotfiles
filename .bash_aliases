@@ -5,6 +5,9 @@
 if [ -f ~/.bashrc_custom ]; then
     . ~/.bashrc_custom
 fi
+if [ -f ~/.bashrc_local ]; then
+    . ~/.bashrc_local
+fi
 
 # Directory commands
 alias -- -="cd -"
