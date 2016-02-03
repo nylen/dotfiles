@@ -17,6 +17,8 @@
 
   co = checkout
 
+  om = !git fetch origin && git checkout origin/master -B master
+
   ls-untracked = ls-files -o --exclude-standard
   add-untracked = !git ls-untracked | xargs -d\\\\n git add -v
 
