@@ -17,6 +17,10 @@
 
   co = checkout
 
+  push0 = "!echo Would run: && echo git push -u --set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
+  push1 = "!git push -u --set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
+  pusht = push --tags
+
   om = !git fetch origin && git checkout origin/master -B master
 
   ls-untracked = ls-files -o --exclude-standard
