@@ -2,8 +2,25 @@
 
 alias cask="brew cask"
 
-# http://apple.stackexchange.com/a/158268
-alias gif="qlmanage -p"
+gif() {
+    case "$1" in
+        *.gif)
+            # http://apple.stackexchange.com/a/158268
+            qlmanage -p "$@"
+            ;;
+        *.mov)
+            mov="$1"
+            base="${mov%.mov}"
+            gif="${base}.gif"
+            echo "$mov -> $gif"
+            gify "$mov" "$gif"
+            ls -la "$base".*
+            ;;
+        *)
+            echo "I dunno what to do with '$1' ¯\\_(ツ)_/¯"
+            ;;
+    esac
+}
 
 # OS X xargs sucks (no `-d|--delimiter` option)
 if type -P gxargs > /dev/null; then
