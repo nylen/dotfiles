@@ -17,8 +17,6 @@
 
   co = checkout
 
-  push = push -u
-
   ls-untracked = ls-files -o --exclude-standard
   add-untracked = !git ls-untracked | xargs -d\\\\n git add -v
 
