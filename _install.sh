@@ -34,3 +34,16 @@ case "$os" in
         install_dotfiles
         ;;
 esac
+
+# Go home and check for broken symlinks
+cd
+
+deleted_files=()
+deleted_files+=(".bashrc_custom")
+
+for i in "${deleted_files[@]}"; do
+    if [ -L "$i" ] && ! [ -f "$i" ]; then
+        echo "Deleting broken symlink: $i"
+        rm "$i"
+    fi
+done

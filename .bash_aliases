@@ -2,9 +2,14 @@
 
 # Most Linuxes source this file if it exists, so use it to load other custom
 # shell configs.
+if [ -f ~/.bashrc_nylen_dotfiles ]; then
+    . ~/.bashrc_nylen_dotfiles
+fi
+# Old .bashrc_nylen_dotfiles
 if [ -f ~/.bashrc_custom ]; then
     . ~/.bashrc_custom
 fi
+# System-specific configuration
 if [ -f ~/.bashrc_local ]; then
     . ~/.bashrc_local
 fi
