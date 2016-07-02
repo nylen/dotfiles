@@ -106,7 +106,11 @@ __bashrc_prompt_command() {
         echo -ne "${_title_start}$wd on $__ps1_hostname${_title_end}"
     fi
 
-    export PS1="$indicator $username${_pcolor_wht}@${_pcolor_cya}$__ps1_hostname ${_pcolor_blu}$wd ${_pcolor_wht}$prompt_char${_pcolor_clr} "
+    PS1="$indicator"
+    PS1="$PS1 $username${_pcolor_wht}@${_pcolor_cya}$__ps1_hostname"
+    PS1="$PS1 ${_pcolor_blu}$wd"
+    PS1="$PS1 ${_pcolor_wht}$prompt_char${_pcolor_clr} "
+    export PS1
 }
 
 PROMPT_COMMAND=__bashrc_prompt_command
