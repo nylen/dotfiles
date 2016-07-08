@@ -153,3 +153,20 @@ __run_hooks() {
 
 # Set up state for chpwd hook
 export __last_wd="$(pwd)"
+
+# nvm stuff
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+__hook_chpwd_check_nvmrc() {
+    wd="$1"
+    last="$2"
+    if [ -f "$wd/.nvmrc" ]; then
+        if type -t nvm > /dev/null; then
+            nvm use || echo "Try running nvm install"
+        else
+            echo "Warning: found .nvmrc in $wd but nvm not installed"
+        fi
+    fi
+}
+__add_hook chpwd __hook_chpwd_check_nvmrc
