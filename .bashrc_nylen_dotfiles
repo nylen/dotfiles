@@ -80,7 +80,13 @@ __bashrc_prompt_command() {
     local _title_start="\033]0;"
     local _title_end="\007"
 
-    local wd="$( __cleanup_path "$( pwd )" )"
+    local wd="$(pwd)"
+    if [ "$wd" != "$__last_wd" ]; then
+        __run_hooks chpwd "$wd" "$__last_wd"
+        export __last_wd="$wd"
+    fi
+
+    local prompt_wd="$(__cleanup_path "$wd")"
 
     if [ $exit_status = 0 ]; then
         local indicator="${_pcolor_grn}✓"
@@ -103,14 +109,47 @@ __bashrc_prompt_command() {
 
     if [ $TERM != linux ]; then
         # system consoles don't support xterm title escape
-        echo -ne "${_title_start}$wd on $__ps1_hostname${_title_end}"
+        echo -ne "${_title_start}$prompt_wd on $__ps1_hostname${_title_end}"
     fi
 
     PS1="$indicator"
     PS1="$PS1 $username${_pcolor_wht}@${_pcolor_cya}$__ps1_hostname"
-    PS1="$PS1 ${_pcolor_blu}$wd"
+    PS1="$PS1 ${_pcolor_blu}$prompt_wd"
     PS1="$PS1 ${_pcolor_wht}$prompt_char${_pcolor_clr} "
     export PS1
 }
 
 PROMPT_COMMAND=__bashrc_prompt_command
+
+# User-defined hooks, inspired by zsh
+# Note - using strings because Bash 3.x (OS X) doesn't support associative arrays
+
+__add_hook() {
+    hook_name="$1"
+    fn="$2"
+    # Dynamic variable names: http://stackoverflow.com/a/16553351
+    hook_functions="__hook_functions_$hook_name"
+    if [ -z "${!hook_functions}" ]; then
+        # Add $fn as first hook for $hook_name
+        export $hook_functions=":$fn":
+    elif [[ "${!hook_functions}" != *":$fn:"* ]]; then
+        # There is already at least one hook for $hook_name, and this hook is
+        # not already set, so add it
+        export $hook_functions="${!hook_functions}$fn:"
+    fi
+}
+
+__run_hooks() {
+    hook_name="$1"
+    shift
+    hook_functions="__hook_functions_$hook_name"
+    local IFS=':'
+    for fn in ${!hook_functions}; do
+        if [ ! -z "$fn" ]; then
+            "$fn" "$@"
+        fi
+    done
+}
+
+# Set up state for chpwd hook
+export __last_wd="$(pwd)"

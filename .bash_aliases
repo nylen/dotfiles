@@ -14,6 +14,9 @@ if [ -f ~/.bashrc_local ]; then
     . ~/.bashrc_local
 fi
 
+# Run hook functions on shell init - needs to come after .bashrc_local
+__run_hooks chpwd "$__last_wd" ""
+
 # Directory commands
 alias -- -="cd -"
 alias ..="cd .."
