@@ -162,6 +162,14 @@ __hook_chpwd_check_nvmrc() {
     wd="$1"
     last="$2"
     if [ -f "$wd/.nvmrc" ]; then
+        if type -P node > /dev/null; then
+            node_version="$(node --version)"
+            read nvm_version < "$wd/.nvmrc"
+            if [ "$node_version" = "$nvm_version" ]; then
+                echo "node $node_version already loaded"
+                return
+            fi
+        fi
         if type -t nvm > /dev/null; then
             nvm use || echo "Try running nvm install"
         else
