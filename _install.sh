@@ -33,6 +33,10 @@ case "$os" in
         cd _osx
         install_dotfiles
         ;;
+    Linux)
+        cd _linux
+        install_dotfiles
+        ;;
 esac
 
 # Go home and check for broken symlinks

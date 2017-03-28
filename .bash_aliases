@@ -13,6 +13,9 @@ fi
 if [ -f ~/.bashrc_local ]; then
     . ~/.bashrc_local
 fi
+if [ -f ~/.bash_aliases_linux ]; then
+    . ~/.bash_aliases_linux
+fi
 
 # Run hook functions on shell init - needs to come after .bashrc_local
 __run_hooks chpwd "$__last_wd" ""
