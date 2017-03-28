@@ -45,9 +45,7 @@ fi
 # ag is many times faster than ack
 if type -P ag > /dev/null; then
     alias ack="ag"
-fi
-
-# poor man's ack
-if ! type -P ack > /dev/null; then
+elif ! type -P ack > /dev/null; then
+    # poor man's ack
     alias ack="git ls-files -z | xargs -0 grep -P"
 fi
