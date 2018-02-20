@@ -28,6 +28,20 @@ __terminal_color() {
     echo "\033[$1"
 }
 
+# Based on https://superuser.com/a/39995
+__prepend_to_path() {
+    DIR="$1"
+    if [ -d "$DIR" ]; then
+        if [ -z "$PATH" ]; then
+            export PATH="$DIR"
+        elif [[ ":$PATH:" != *":$DIR:"* ]]; then
+            export PATH="$DIR:$PATH"
+        fi
+    fi
+}
+
+__prepend_to_path "$HOME/bin"
+
 __cleanup_path() {
     local path="$1/"
 
