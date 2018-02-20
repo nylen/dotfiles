@@ -179,6 +179,10 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     nvm_die_on_prefix() {
         return 0
     }
+    # This also loads npm; let's just skip it.
+    npm_print_npm_version() {
+        :
+    }
     # nvm_resolve_local_alias can also be slow; cache it.
     if [ -s "$NVM_DIR/_default_version" ]; then
         NVM_AUTO_LOAD_VERSION=$(cat "$NVM_DIR/_default_version")
