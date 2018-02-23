@@ -15,3 +15,11 @@ Among other things, it loads `~/.bash_aliases`.
 
 Place system-specific commands in a file called `~/.bashrc_local`.  (Or, on
 Linux, you can also put them in `~/.bashrc`.)
+
+### Tests
+
+To run tests for some of the functionality included here, do this:
+
+```sh
+~/dotfiles/test/run-all.sh
+```
