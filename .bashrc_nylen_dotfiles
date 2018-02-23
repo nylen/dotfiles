@@ -34,7 +34,7 @@ __terminal_color() {
 
 # Based on https://superuser.com/a/39995
 __prepend_to_path() {
-    DIR="$1"
+    local DIR="$1"
     if [ -d "$DIR" ]; then
         if [ -z "$PATH" ]; then
             export PATH="$DIR"
