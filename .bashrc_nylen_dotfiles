@@ -149,7 +149,7 @@ __add_hook() {
     hook_functions="__hook_functions_$hook_name"
     if [ -z "${!hook_functions}" ]; then
         # Add $fn as first hook for $hook_name
-        export $hook_functions=":$fn":
+        export $hook_functions=":$fn:"
     elif [[ "${!hook_functions}" != *":$fn:"* ]]; then
         # There is already at least one hook for $hook_name, and this hook is
         # not already set, so add it
