@@ -51,7 +51,6 @@ __cleanup_path() {
 
     # replace common path components
     path="${path/#$HOME\//~\/}"
-    path="${path/#\/media\/james_home\//~\/}"
     # for bash 3.x (ships with OS X)
     path="${path/#~\\/~}"
 
