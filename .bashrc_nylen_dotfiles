@@ -10,8 +10,12 @@ export HISTCONTROL=ignoredups:erasedups
 # Append rather than overwrite
 shopt -s histappend
 # Long history
-export HISTSIZE=5000
-export HISTFILESIZE=5000
+if [ ! -z "$HISTFILESIZE" ] && [ "$HISTFILESIZE" -lt 50000 ]; then
+    echo "WARNING: \$HISTFILESIZE was set to $HISTFILESIZE during shell startup"
+    echo "Your history file will be truncated sooner than desired!"
+fi
+export HISTSIZE=50000
+export HISTFILESIZE=50000
 
 export EDITOR=vim
 
