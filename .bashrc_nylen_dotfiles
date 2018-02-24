@@ -204,7 +204,7 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
         return 0
     }
     # This also loads npm; let's just skip it.
-    npm_print_npm_version() {
+    nvm_print_npm_version() {
         return 0
     }
     # nvm_resolve_local_alias can also be slow; cache it.
