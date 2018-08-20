@@ -46,11 +46,30 @@ __prepend_to_path() {
 
 __prepend_to_path "$HOME/bin"
 
+declare -A __path_aliases
+
+__add_path_alias() {
+    dir="$1"
+    alias="$2"
+    # ensure exactly one trailing slash
+    dir="${dir%/}/"
+    # replace $HOME with ~
+    dir="${dir/#$HOME\//~\/}"
+    # store alias for later use
+    __path_aliases[$dir]="$alias"
+}
+
 __cleanup_path() {
     local path="$1/"
 
     # replace common path components
     path="${path/#$HOME\//~\/}"
+
+    # replace locally defined paths with shorter names
+    for dir in "${!__path_aliases[@]}"; do
+        alias="${__path_aliases[$dir]}"
+        path="${path/#$dir/<$alias>/}"
+    done
 
     # remove trailing slash
     path="${path%/}"
