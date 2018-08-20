@@ -51,8 +51,6 @@ __cleanup_path() {
 
     # replace common path components
     path="${path/#$HOME\//~\/}"
-    # for bash 3.x (ships with OS X)
-    path="${path/#~\\/~}"
 
     # remove trailing slash
     path="${path%/}"
@@ -139,7 +137,7 @@ __bashrc_prompt_command() {
 PROMPT_COMMAND=__bashrc_prompt_command
 
 # User-defined hooks, inspired by zsh
-# Note - using strings because Bash 3.x (OS X) doesn't support associative arrays
+# TODO - rewrite to use arrays (used strings for old Bash 3.x / OS X support)
 
 __add_hook() {
     hook_name="$1"
