@@ -50,3 +50,15 @@ GT=">"
 	cleaned=$(__cleanup_path ~/dotfiles/.git/hooks/)
 	[ "$cleaned" = "${LT}DOT-GIT${GT}/hooks" ]
 }
+
+@test "cleanup almost-but-not directory with short alias" {
+	__add_path_alias ~/dotfiles/.git DOT-GIT
+	cleaned=$(__cleanup_path ~/dotfiles/.gitignore)
+	[ "$cleaned" = "~/dotfiles/.gitignore" ]
+}
+
+@test "cleanup almost-but-not directory with short alias (trailing slashes)" {
+	__add_path_alias ~/dotfiles/.git/ DOT-GIT
+	cleaned=$(__cleanup_path ~/dotfiles/.gitignore/)
+	[ "$cleaned" = "~/dotfiles/.gitignore" ]
+}
