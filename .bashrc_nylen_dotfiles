@@ -54,7 +54,7 @@ __add_path_alias() {
     # ensure exactly one trailing slash
     dir="${dir%/}/"
     # replace $HOME with ~
-    dir="${dir/#$HOME\//~\/}"
+    dir="${dir/#$HOME\//~/}"
     # store alias for later use
     __path_aliases[$dir]="$alias"
 }
@@ -63,7 +63,7 @@ __cleanup_path() {
     local path="$1/"
 
     # replace common path components
-    path="${path/#$HOME\//~\/}"
+    path="${path/#$HOME\//~/}"
 
     # replace locally defined paths with shorter names
     for dir in "${!__path_aliases[@]}"; do
