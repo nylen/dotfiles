@@ -46,7 +46,8 @@ __prepend_to_path() {
 
 __prepend_to_path "$HOME/bin"
 
-declare -A __path_aliases
+__path_alias_dirs=()
+__path_alias_aliases=()
 
 __add_path_alias() {
     dir="$1"
@@ -54,21 +55,33 @@ __add_path_alias() {
     # ensure exactly one trailing slash
     dir="${dir%/}/"
     # replace $HOME with ~
-    dir="${dir/#$HOME\//~/}"
+    dir="${dir/#$HOME\//~\/}"
+    # work around bash version differences (in 4.2 the backslash gets added
+    # too, but in 4.4 the substitution doesn't work without the backslash)
+    dir="${dir/#~\\/~}"
     # store alias for later use
-    __path_aliases[$dir]="$alias"
+    __path_alias_dirs+=("$dir")
+    __path_alias_aliases+=("$alias")
 }
 
 __cleanup_path() {
-    local path="$1/"
+    local path="$1"
+    # ensure a trailing slash
+    # XXX this function will not handle multiple trailing slashes
+    path="${path%/}/"
 
     # replace common path components
-    path="${path/#$HOME\//~/}"
+    path="${path/#$HOME\//~\/}"
+    # work around bash version differences
+    path="${path/#~\\/~}"
 
-    # replace locally defined paths with shorter names
-    for dir in "${!__path_aliases[@]}"; do
-        alias="${__path_aliases[$dir]}"
-        path="${path/#$dir/<$alias>/}"
+    # replace locally defined paths with shorter aliases
+    for ((i=0; i<${#__path_alias_dirs[@]}; i++)); do
+        dir="${__path_alias_dirs[$i]}"
+        alias="${__path_alias_aliases[$i]}"
+        path="${path/#$dir/<$alias>\/}"
+        # work around bash version differences
+        path="${path/#<$alias>\\/<$alias>}"
     done
 
     # remove trailing slash
