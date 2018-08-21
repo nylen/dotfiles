@@ -18,8 +18,10 @@ Linux, you can also put them in `~/.bashrc`.)
 
 ### Tests
 
-To run tests for some of the functionality included here, do this:
+To run tests for some of the functionality included here, install the
+[`bats`](https://github.com/nylen/bats-core#installing-bats-from-source)
+testing framework, then do this:
 
 ```sh
-~/dotfiles/test/run-all.sh
+bats ~/dotfiles/test/
 ```
