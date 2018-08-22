@@ -173,7 +173,8 @@ __bashrc_prompt_command() {
 PROMPT_COMMAND=__bashrc_prompt_command
 
 # User-defined hooks, inspired by zsh
-# TODO - rewrite to use arrays (used strings for old Bash 3.x / OS X support)
+# TODO - rewrite to use arrays
+# (not associative arrays though, because some servers are still on bash 3.x!)
 
 __add_hook() {
     hook_name="$1"
