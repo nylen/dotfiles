@@ -68,6 +68,41 @@ __add_path_alias() {
     __path_alias_aliases+=("$alias")
 }
 
+__cd_path_alias() {
+    alias="$1"
+
+    if [ -z "$alias" ]; then
+        echo 'Registered path aliases:'
+        for ((i=0; i<${#__path_alias_dirs[@]}; i++)); do
+            alias="${__path_alias_aliases[$i]}"
+            dir="${__path_alias_dirs[$i]}"
+            echo -e "$alias\t$dir"
+        done
+        return 0
+    fi
+
+    # https://stackoverflow.com/a/1728814/106302
+    local _shopt_nocasematch
+    _shopt_nocasematch=$(shopt -p nocasematch; true)
+    shopt -s nocasematch
+    for ((i=0; i<${#__path_alias_dirs[@]}; i++)); do
+        if [[ "$alias" = "${__path_alias_aliases[$i]}" ]]; then
+            $_shopt_nocasematch # restore setting
+            dir="${__path_alias_dirs[$i]}"
+            # https://stackoverflow.com/a/30770111/106302
+            local _safe_dir
+            printf -v _safe_dir '%q' "$dir"
+            dir=$(eval echo ${_safe_dir#\\})
+            echo "$dir"
+            cd "$dir"
+            return 0
+        fi
+    done
+    $_shopt_nocasematch # restore setting
+    echo "Path alias not recognized: $alias" >&2
+    return 1
+}
+
 __cleanup_path() {
     local path="$1"
     # ensure a trailing slash

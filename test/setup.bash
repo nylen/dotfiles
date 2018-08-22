@@ -1,3 +1,5 @@
 #!/bin/bash
 
-. "$(dirname "$BASH_SOURCE")/../.bashrc_nylen_dotfiles"
+cd "$(dirname "$BASH_SOURCE")"
+cd ..
+. .bashrc_nylen_dotfiles
