@@ -27,7 +27,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias md="mkdir"
-alias mcd=". mkdir-cd"
+alias mcd="mkdir-cd"
 
 # Miscellaneous
 alias ping="ping -c 4"

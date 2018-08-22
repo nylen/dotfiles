@@ -259,3 +259,10 @@ fi
 if [ -s "$HOME/.phpbrew/bashrc" ]; then
     . "$HOME/.phpbrew/bashrc"
 fi
+
+# Other miscellaneous functions
+mkdir-cd() {
+    dir="$1"
+    mkdir -p "$dir"
+    cd "$dir"
+}
