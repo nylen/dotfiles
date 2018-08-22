@@ -2,6 +2,7 @@
 
 # Most Linuxes source this file if it exists, so use it to load other custom
 # shell configs.
+
 if [ -f ~/.bashrc_nylen_dotfiles ]; then
     . ~/.bashrc_nylen_dotfiles
 fi
