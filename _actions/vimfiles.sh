@@ -2,4 +2,4 @@
 
 [ -d ~/.vim ] && exit
 cd
-git clone git@github.com:nylen/vimfiles .vim
+git clone https://github.com/nylen/vimfiles.git .vim
