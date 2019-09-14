@@ -3,13 +3,17 @@
 cd "$(dirname "$0")"
 
 install_dotfiles() {
+    dst_path="$1"
+    [ -z "$dst_path" ] && dst_path="$HOME"
+    mkdir -pv "$dst_path"
+
     for i in * .*; do
         case "$i" in
             .|..|.git|.gitignore|_*|*.md|\*)
                 ;;
             *)
                 src="$(pwd)/$i"
-                dst=~/"$i"
+                dst="$dst_path/$i"
                 if [ ! -L "$dst" ]; then
                     ln -vs "$src" "$dst"
                 fi
@@ -30,14 +34,20 @@ os="$(uname -s)"
 
 case "$os" in
     Darwin)
-        cd _osx
-        install_dotfiles
+        pushd _osx
+            install_dotfiles
+        popd
         ;;
     Linux)
-        cd _linux
-        install_dotfiles
+        pushd _linux
+            install_dotfiles
+        popd
         ;;
 esac
+
+pushd bin
+    install_dotfiles "$HOME/bin"
+popd
 
 # Go home and check for broken symlinks
 cd

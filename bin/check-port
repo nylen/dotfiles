@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 [host] port [port ...]"
+    exit 1
+elif [ -z "$2" ]; then
+    host="localhost"
+else
+    host="$1"
+    shift
+fi
+
+while [ ! -z "$1" ]; do
+    port="$1"
+    shift
+    if nc -z -w 1 "$host" "$port"; then
+        echo "Port $host:$port is OPEN"
+    else
+        echo "Port $host:$port is CLOSED"
+        exit 1
+    fi
+done

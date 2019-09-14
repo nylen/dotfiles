@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $user = $ARGV[0];
+$user or die "Usage: $0 username\n";
+
+my $repo = `git remote get-url origin`;
+chomp $repo;
+$repo =~ s#\.git$##;
+$repo =~ s#^.*/([^/]+)$#$1#;
+
+system("git remote add $user git\@github.com:$user/$repo") == 0
+    or die "Adding remote failed!\n";
+
+system("git fetch $user") == 0
+    or die "Fetching remote failed!\n";
