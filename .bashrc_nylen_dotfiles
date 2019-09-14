@@ -48,6 +48,7 @@ __prepend_to_path() {
     fi
 }
 
+mkdir -p "$HOME/bin"
 __prepend_to_path "$HOME/bin"
 
 __path_alias_dirs=()
