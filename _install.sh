@@ -9,7 +9,7 @@ install_dotfiles() {
 
     for i in * .*; do
         case "$i" in
-            .|..|.git|.gitignore|_*|*.md|\*)
+            .|..|.git|.gitignore|bin|_*|*.md|\*)
                 ;;
             *)
                 src="$(pwd)/$i"
@@ -34,20 +34,20 @@ os="$(uname -s)"
 
 case "$os" in
     Darwin)
-        pushd _osx
+        pushd _osx > /dev/null
             install_dotfiles
-        popd
+        popd > /dev/null
         ;;
     Linux)
-        pushd _linux
+        pushd _linux > /dev/null
             install_dotfiles
-        popd
+        popd > /dev/null
         ;;
 esac
 
-pushd bin
+pushd bin > /dev/null
     install_dotfiles "$HOME/bin"
-popd
+popd > /dev/null
 
 # Go home and check for broken symlinks
 cd
