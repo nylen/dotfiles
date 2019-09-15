@@ -5,12 +5,24 @@
 
 \. ~/.nvm/nvm.sh --no-use
 
-if [ ! -f "$1" ]; then
-  echo "Usage: $0 node-script.js [args [...]]"
+if [ "$1" = node ]; then
+  script="$2"
+else
+  script="$1"
+fi
+
+if [ ! -f "$script" ]; then
+  echo "Usage: $0 [node] /path/to/script.js [args [...]]"
+  echo "   or: $0 /path/to/script.sh [args [...]]"
   exit 127
 fi
 
-dir=$(dirname "$1")
+# https://stackoverflow.com/a/3572105
+realpath_bash() {
+  [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
+dir=$(dirname "$(realpath_bash "$script")")
 while [[ ! -f "$dir/.nvmrc" && "$dir" != / ]]; do
   dir=$(dirname "$dir")
 done
@@ -27,4 +39,4 @@ else
   exit 127
 fi
 
-exec node "$@"
+exec "$@"
