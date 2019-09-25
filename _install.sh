@@ -9,7 +9,7 @@ install_dotfiles() {
 
     for i in * .*; do
         case "$i" in
-            .|..|.git|.gitignore|bin|_*|*.md|\*)
+            .|..|.git|.gitignore|bin|test|_*|*.md|\*)
                 ;;
             *)
                 src="$(pwd)/$i"
