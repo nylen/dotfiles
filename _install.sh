@@ -41,6 +41,9 @@ case "$os" in
     Linux)
         pushd _linux > /dev/null
             install_dotfiles
+            pushd bin > /dev/null
+                install_dotfiles "$HOME/bin"
+            popd > /dev/null
         popd > /dev/null
         ;;
 esac
