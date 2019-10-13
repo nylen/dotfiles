@@ -1,0 +1,23 @@
+#!/bin/bash
+
+code=0
+
+while read password; do
+	sha=$(echo -n "$password" | sha1sum | tr '[a-z]' '[A-Z]' | cut -d' ' -f1)
+	sha_first5=$(echo $sha | cut -c1-5)
+	pwned=n
+	while read line; do
+		if [[ "$sha_first5$line" == "$sha:"* ]]; then
+			times=$(echo "$line" | cut -d: -f2)
+			echo "Password with sha1sum '$sha' has been PWNED!"
+			echo "Times seen in source data: $times"
+			code=1
+			pwned=y
+		fi
+	done < <(curl -s "https://api.pwnedpasswords.com/range/$sha_first5")
+	if [ $pwned = n ]; then
+		echo "Password with sha1sum '$sha' doesn't appear in known breaches."
+	fi
+done
+
+exit $code
