@@ -54,3 +54,8 @@ elif ! type -P ack > /dev/null; then
     # poor man's ack
     alias ack="git ls-files -z | xargs -0 grep -P"
 fi
+
+# more predictable search aliases
+alias g="git ls-files -z | xargs -0 grep -P"
+alias f="find . -type f | sort -z | xargs -0 grep -P"
+alias fphp="find . -type f -name '*.php' | sort -z | xargs -0 grep -P"
