@@ -7,8 +7,8 @@ ini_set( 'display_startup_errors', true );
 error_reporting( E_ALL );
 
 $options = [
-	'verify_ssl' => true,
-	'auth'       => null,
+	'auth'      => null,
+	'no_verify' => false,
 ];
 
 function fail( $message ) {
@@ -33,7 +33,7 @@ function do_head_request( $url ) {
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 	curl_setopt( $ch, CURLOPT_HEADER, true );
 
-	if ( ! $options['verify_ssl'] ) {
+	if ( $options['no_verify'] ) {
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
 	}
 
@@ -162,8 +162,8 @@ for ( $i = 1; $i < $argc; $i++ ) {
 
 	if ( starts_with( $arg, '-' ) ) {
 		// Option argument.
-		if ( $arg === '-n' ) {
-			$options['verify_ssl'] = false;
+		if ( $arg === '-n' || $arg === '--no-verify' ) {
+			$options['no_verify'] = true;
 		} else if ( $arg === '-a' || $arg === '--auth' ) {
 			$options['auth'] = $argv[ ++$i ];
 		} else if ( starts_with( $arg, '--auth=' ) ) {
