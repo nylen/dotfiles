@@ -7,8 +7,9 @@ ini_set( 'display_startup_errors', true );
 error_reporting( E_ALL );
 
 $options = [
-	'auth'      => null,
-	'no_verify' => false,
+	'add_slashes' => false,
+	'auth'        => null,
+	'no_verify'   => false,
 ];
 
 function fail( $message ) {
@@ -106,13 +107,16 @@ function format_url_for_echo( $url ) {
 }
 
 function check_url( $url ) {
-	global $urls_to_check, $urls_checked;
+	global $urls_to_check, $urls_checked, $options;
 
 	if ( isset( $urls_checked[ $url ] ) ) {
 		return;
 	}
 
-	if ( ! preg_match( '#(\.[a-zA-Z0-9]{2,5}|/)(\?|$)#', $url ) ) {
+	if (
+		$options['add_slashes'] &&
+		! preg_match( '#(\.[a-zA-Z0-9]{2,5}|/)(\?|$)#', $url )
+	) {
 		$urls_to_check[] = preg_replace( '#(\?|$)#', '/$1', $url, 1 );
 	}
 
@@ -170,6 +174,8 @@ for ( $i = 1; $i < $argc; $i++ ) {
 			$options['auth'] = strip_prefix( $arg, '--auth=' );
 		} else if ( starts_with( $arg, '-a' ) ) {
 			$options['auth'] = strip_prefix( $arg, '-a' );
+		} else if ( $arg === '-s' || $arg === '--add-slashes' ) {
+			$options['add_slashes'] = true;
 		} else {
 			fail( "Unrecognized argument: $arg" );
 		}
