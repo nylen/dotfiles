@@ -110,6 +110,7 @@ function check_url( $url ) {
 	global $urls_to_check, $urls_checked, $options;
 
 	if ( isset( $urls_checked[ $url ] ) ) {
+		echo "already checked: $url\n";
 		return;
 	}
 
