@@ -57,5 +57,5 @@ fi
 
 # more predictable search aliases
 alias g="git ls-files -z | xargs -0 grep -P"
-alias f="find . -type f | sort -z | xargs -0 grep -P"
-alias fphp="find . -type f -name '*.php' | sort -z | xargs -0 grep -P"
+alias f="find . -type f -print0 | sort -z | xargs -0 grep -P"
+alias fphp="find . -type f -name '*.php' -print0 | sort -z | xargs -0 grep -P"
