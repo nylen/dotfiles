@@ -1,4 +1,5 @@
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/home/james/bin
+SHELL=/bin/bash
 
 # vim: ft=crontab
 
