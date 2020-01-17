@@ -24,6 +24,7 @@
   om = !git fetch origin && git checkout origin/master -B master
   od = !git fetch origin && git checkout origin/develop -B develop
   um = !git fetch upstream && git checkout upstream/master -B master && git branch --set-upstream-to=origin/master
+  ud = !git fetch upstream && git checkout upstream/develop -B develop && git branch --set-upstream-to=origin/develop
 
   ls-untracked = ls-files -o --exclude-standard
   add-untracked = !git ls-untracked | xargs -d\\\\n git add -v
