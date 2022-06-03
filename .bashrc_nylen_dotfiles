@@ -70,14 +70,24 @@ __add_path_alias() {
 }
 
 __cd_path_alias() {
+    local alias dir max_len
     alias="$1"
 
     if [ -z "$alias" ]; then
         echo 'Registered path aliases:'
+        max_len=0
+        for ((i=0; i<${#__path_alias_dirs[@]}; i++)); do
+            alias="${__path_alias_aliases[$i]}"
+            if [ ${#alias} -gt $max_len ]; then
+                max_len=${#alias}
+            fi
+        done
         for ((i=0; i<${#__path_alias_dirs[@]}; i++)); do
             alias="${__path_alias_aliases[$i]}"
             dir="${__path_alias_dirs[$i]}"
-            echo -e "$alias\t$dir"
+            echo -n "$alias"
+            printf ' %.0s' `seq 1 $(($max_len - ${#alias} + 2))`
+            echo "$dir"
         done
         return 0
     fi
