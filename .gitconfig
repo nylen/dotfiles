@@ -32,6 +32,7 @@
   ls-deleted = ls-files -d
   rm-deleted = !git ls-deleted | xargs -d\\\\n git rm
   rm-untracked = !git ls-untracked | xargs -d\\\\n rm -v
+  graph = log --all --decorate --graph --oneline
 
 [core]
   editor = vim
